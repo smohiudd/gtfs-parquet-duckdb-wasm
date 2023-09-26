@@ -2,6 +2,7 @@
   "name": "gtfs-parquet",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://smohiudd.github.io/gtfs-parquet-duckdb-wasm",
   "dependencies": {
     "@duckdb/duckdb-wasm": "^1.27.1-dev120.0",
     "@testing-library/jest-dom": "^5.17.0",

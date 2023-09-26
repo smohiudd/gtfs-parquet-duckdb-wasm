@@ -25,8 +25,8 @@ function App() {
   const [routeId, setRouteId] = useState('6658');
   const [listRoute, setListRoute] = useState([]);
   const [listTrip, setListTrip] = useState([]);
-  const [geom, setGeom] = useState();
-  const [geomstops, setGeomStops] = useState();
+  const [geom, setGeom] = useState([]);
+  const [geomstops, setGeomStops] = useState([]);
 
   
   useEffect(() => {
