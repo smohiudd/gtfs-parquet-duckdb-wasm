@@ -17,7 +17,7 @@ export default function Sidebar(props){
  
   return (
     <div className="sidebar-container prose">
-      <h1 className='color-red'>GTFS + Parquet + DuckDB WASM</h1>
+      <h1 className='color-red'>GTFS + Parquet + DuckDB-Wasm</h1>
       <p>This visualization was created using <a target="_blank" href='https://duckdb.org/docs/api/wasm/overview.html' className='link'>DuckDB-Wasm</a> and <a target="_blank" href='https://gtfs.org/' className='link'>GTFS</a> csv files 
         converted to <a target="_blank" href='https://parquet.apache.org/' className='link'>parquet</a> format and served over HTTP. Parquet files are imported in the database by registering urls and SQL queries are completed in the browser.   
         Select a <code className='txt-code'>route</code> and <code className='txt-code'>shape_id</code> below. 
