@@ -1,24 +1,114 @@
-import logo from './logo.svg';
+import Sidebar from './sidebar.js';
 import './App.css';
+import Map from './map.js';
+import React, { useEffect, useState } from 'react';
+import {DuckDBClient, makeDB} from './dbclient.js'
+
+let Db = makeDB();
+let db = new DuckDBClient(Db);
+
+let urls = [
+  {file: "trips.parquet", url: "https://gtfs-parquet.s3.us-west-2.amazonaws.com/trips.parquet"},
+  {file: "shapes.parquet", url: "https://gtfs-parquet.s3.us-west-2.amazonaws.com/shapes.parquet"},
+  {file: "routes.parquet", url: "https://gtfs-parquet.s3.us-west-2.amazonaws.com/routes.parquet"},
+  {file: "stop_times.parquet", url: "https://gtfs-parquet.s3.us-west-2.amazonaws.com/stop_times.parquet"},
+  {file: "stops.parquet", url: "https://gtfs-parquet.s3.us-west-2.amazonaws.com/stops.parquet"}
+]
+
+urls.map((file) => {
+  db.insertParquet(file)
+})
 
 function App() {
+
+  const [tripId, setTripId] = useState(283746);
+  const [routeId, setRouteId] = useState('6658');
+  const [listRoute, setListRoute] = useState([]);
+  const [listTrip, setListTrip] = useState([]);
+  const [geom, setGeom] = useState();
+  const [geomstops, setGeomStops] = useState();
+
+  
+  useEffect(() => {
+      db.queryStream(`SELECT * FROM 'routes.parquet'`,null).then((result) => {
+        let rows = result.readRows()
+        rows.next()
+        .then((res) => {
+          setListRoute(res.value)
+          return rows.next();
+        })
+      })
+  },[]);
+
+  useEffect(() => {
+    db.queryStream(`
+      SELECT DISTINCT ON (shape_id) shape_id, trip_id, trip_headsign 
+      FROM 'trips.parquet' WHERE route_id=${routeId}
+      `
+      ,null).then((result) => {
+      let rows = result.readRows()
+      rows.next()
+      .then((res) => {
+        setListTrip(res.value)
+        setTripId(res.value[0].trip_id)
+        return rows.next();
+      })
+    })
+  },[routeId]);
+
+  useEffect(() => {
+    db.queryStream(`
+      SELECT shape_pt_sequence, shape_pt_lat, shape_pt_lon FROM
+      (SELECT * FROM trips.parquet
+      WHERE trip_id=${tripId}) as b
+      JOIN shapes.parquet ON b.shape_id=shapes.shape_id
+      ORDER BY shape_pt_sequence
+      `
+      ,null).then((result) => {
+      let rows = result.readRows()
+      rows.next()
+      .then((res) => {
+        setGeom(res.value)
+        return rows.next();
+      })
+    })
+
+    db.queryStream(`
+      SELECT b.stop_id, stop_lat, stop_lon, stop_name FROM
+      (SELECT stop_id, stop_sequence FROM stop_times.parquet
+      WHERE trip_id=${tripId}
+      ORDER BY stop_sequence) as b
+      JOIN stops.parquet ON b.stop_id=stops.stop_id
+      ` 
+      ,null).then((result) => {
+      let rows = result.readRows()
+      rows.next()
+      .then((res) => {
+        setGeomStops(res.value)
+        return rows.next();
+      })
+    })
+
+  },[tripId]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Map 
+        geom={geom}
+        geomstops={geomstops}
+      />
+
+      <Sidebar 
+        trips={listTrip} 
+        setTrip={setTripId}
+        selectedTrip={tripId}
+        routes={listRoute}
+        setRoute={setRouteId}
+        selectedRoute={routeId}
+
+      />
     </div>
+  
   );
 }
 
