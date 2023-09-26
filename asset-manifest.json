@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/gtfs-parquet-duckdb-wasm/static/css/main.ba07c140.css",
-    "main.js": "/gtfs-parquet-duckdb-wasm/static/js/main.e6e8f553.js",
+    "main.css": "/gtfs-parquet-duckdb-wasm/static/css/main.71ca4b38.css",
+    "main.js": "/gtfs-parquet-duckdb-wasm/static/js/main.0eba2a76.js",
     "index.html": "/gtfs-parquet-duckdb-wasm/index.html",
-    "main.ba07c140.css.map": "/gtfs-parquet-duckdb-wasm/static/css/main.ba07c140.css.map",
-    "main.e6e8f553.js.map": "/gtfs-parquet-duckdb-wasm/static/js/main.e6e8f553.js.map"
+    "main.71ca4b38.css.map": "/gtfs-parquet-duckdb-wasm/static/css/main.71ca4b38.css.map",
+    "main.0eba2a76.js.map": "/gtfs-parquet-duckdb-wasm/static/js/main.0eba2a76.js.map"
   },
   "entrypoints": [
-    "static/css/main.ba07c140.css",
-    "static/js/main.e6e8f553.js"
+    "static/css/main.71ca4b38.css",
+    "static/js/main.0eba2a76.js"
   ]
 }
