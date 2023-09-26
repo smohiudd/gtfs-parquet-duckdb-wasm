@@ -76,21 +76,21 @@ export default function Map(props) {
     });    
   }, [lng, lat, zoom]);
 
-  // useEffect(() => {
-  //   if(!props.geom || props.geom.length==0) return;
-  //   let coords = props.geom.map((item) => [item.shape_pt_lon,item.shape_pt_lat])
-  //   let line = lineString(coords);
-  //   map.current.getSource('route').setData(line)
-  //   let box = bbox(line);
-  //   map.current.fitBounds(box, { padding: 30 });
-  // },[props.geom])
+  useEffect(() => {
+    if(!props.geom || props.geom.length==0) return;
+    let coords = props.geom.map((item) => [item.shape_pt_lon,item.shape_pt_lat])
+    let line = lineString(coords);
+    map.current.getSource('route').setData(line)
+    let box = bbox(line);
+    map.current.fitBounds(box, { padding: 30 });
+  },[props.geom])
 
-  // useEffect(() => {
-  //   if(!props.geomstops || props.geomstops.length==0) return;
-  //   let points = props.geomstops.map((item) => point([item.stop_lon,item.stop_lat], {stop_name: item.stop_name}))
-  //   let collection = featureCollection(points);
-  //   map.current.getSource('stops').setData(collection)
-  // },[props.geomstops])
+  useEffect(() => {
+    if(!props.geomstops || props.geomstops.length==0) return;
+    let points = props.geomstops.map((item) => point([item.stop_lon,item.stop_lat], {stop_name: item.stop_name}))
+    let collection = featureCollection(points);
+    map.current.getSource('stops').setData(collection)
+  },[props.geomstops])
 
   return (
     <div >
