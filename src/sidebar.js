@@ -18,9 +18,12 @@ export default function Sidebar(props){
   return (
     <div className="sidebar-container prose">
       <h1 className='color-red'>GTFS + Parquet + DuckDB WASM</h1>
-      <p>This visualization was created using <a href='#Links' className='link'>DuckDb WASM</a> and GTFS csv files converted to <a href='#Links' className='link'>parquet</a> format. 
-        Select a <code className='txt-code'>route</code> and <code className='txt-code'>shape_id</code> below.
-        Parquet files are registered and SQL queries are completed in the browser by joining tables.  
+      <p>This visualization was created using <a target="_blank" href='https://duckdb.org/docs/api/wasm/overview.html' className='link'>DuckDB-Wasm</a> and <a target="_blank" href='https://gtfs.org/' className='link'>GTFS</a> csv files 
+        converted to <a target="_blank" href='https://parquet.apache.org/' className='link'>parquet</a> format and served over HTTP. Parquet files are imported in the database by registering urls and SQL queries are completed in the browser.   
+        Select a <code className='txt-code'>route</code> and <code className='txt-code'>shape_id</code> below. 
+      </p>
+      <p>
+        Check out the github repo: <a target="_blank" href='https://github.com/smohiudd/gtfs-parquet-duckdb-wasm' className='link'>https://github.com/smohiudd/gtfs-parquet-duckdb-wasm</a>
       </p>
       <div className='select-container py12'>
 
@@ -31,7 +34,7 @@ export default function Sidebar(props){
           >
               {props.routes.map((item) =>
                 <option key={item.route_id} value={item.route_id}>
-                  {item.route_long_name}
+                  {item.route_short_name} - {item.route_long_name}
                 </option>
               )}
           </select>
@@ -52,7 +55,7 @@ export default function Sidebar(props){
           </select>
           <div className='select-arrow'></div>
           </div>
-          <p>The sample data is for <a href='#Links' className='link'>Translink</a> in Vancouver.
+          <p>Sample data is for <a target="_blank" href='https://www.translink.ca/about-us/doing-business-with-translink/app-developer-resources/gtfs/gtfs-data' className='link'>Translink</a> in Vancouver.
           </p>
       </div>
     

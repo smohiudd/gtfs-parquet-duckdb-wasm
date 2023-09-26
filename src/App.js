@@ -30,7 +30,7 @@ function App() {
 
   
   useEffect(() => {
-      db.queryStream(`SELECT * FROM 'routes.parquet'`,null).then((result) => {
+      db.queryStream(`SELECT * FROM 'routes.parquet' ORDER BY route_short_name`,null).then((result) => {
         let rows = result.readRows()
         rows.next()
         .then((res) => {
