@@ -7,4 +7,3 @@ The DB Client was adapted from [CMU Data Interaction Group](https://dig.cmu.edu/
 ## Run Locally
 
 To run locally, use `npm install` and then `npm start`
-
