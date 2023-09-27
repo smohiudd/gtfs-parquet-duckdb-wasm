@@ -23,7 +23,7 @@ export default function Sidebar(props){
         Select a <code className='txt-code'>route</code> and <code className='txt-code'>shape_id</code> below. 
       </p>
       <p>
-        Check out the github repo: <a target="_blank" href='https://github.com/smohiudd/gtfs-parquet-duckdb-wasm' className='link'>https://github.com/smohiudd/gtfs-parquet-duckdb-wasm</a>
+        Check out the github repo: <a target="_blank" href='https://github.com/smohiudd/gtfs-parquet-duckdb-wasm' className='link'>https://github.com/smohiudd/gtfs-parquet-duckdb-wasm</a> and the <a target="_blank" href='https://saadiqm.com/2023/09/26/gtfs-parquet-duckdb.html' className='link'>blog post</a>
       </p>
       <div className='select-container py12'>
 
